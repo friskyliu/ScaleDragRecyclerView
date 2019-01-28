@@ -11,7 +11,7 @@ class ScaleLinearRecyclerView : RecyclerView {
     private lateinit var linearLayoutManager: LinearLayoutManager
     private var orientation = LinearLayoutManager.HORIZONTAL
     private val snapHelper = CenterLinearSnapHelper()
-    private var itemSize: Float = 0F
+    private var itemViewSize: Float = 0F
 
     constructor(context: Context) : this(context, null)
 
@@ -24,22 +24,22 @@ class ScaleLinearRecyclerView : RecyclerView {
     private fun init(context: Context, attrs: AttributeSet?) {
         loadAttrs(context, attrs)
         snapHelper.attachToRecyclerView(this)
-        addItemDecoration(ScaleLinearItemDecoration(itemSize.roundToInt(), orientation))
+        addItemDecoration(ScaleLinearItemDecoration(itemViewSize.roundToInt(), orientation))
         linearLayoutManager = object : LinearLayoutManager(context, orientation, false) {
             override fun onLayoutCompleted(state: RecyclerView.State?) {
                 super.onLayoutCompleted(state)
-                notifyItemScaled()
+                notifyScrolled()
             }
         }
         layoutManager = linearLayoutManager
 
         addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                notifyItemScaled()
+                notifyScrolled()
             }
 
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                notifyItemScaled()
+                notifyScrolled()
             }
         })
     }
@@ -47,28 +47,28 @@ class ScaleLinearRecyclerView : RecyclerView {
     private fun loadAttrs(ctx: Context, attrs: AttributeSet?) {
         if (attrs == null) {
             orientation = LinearLayoutManager.HORIZONTAL
-            itemSize = 120F
+            itemViewSize = 120F
             return
         }
 
         val typedArray = ctx.obtainStyledAttributes(attrs, R.styleable.ScaleLinearRecyclerView)
         orientation = typedArray.getInt(R.styleable.ScaleLinearRecyclerView_orientation, LinearLayoutManager.HORIZONTAL)
-        itemSize = typedArray.getDimension(R.styleable.ScaleLinearRecyclerView_item_size, 120F)
+        itemViewSize = typedArray.getDimension(R.styleable.ScaleLinearRecyclerView_item_size, 120F)
         typedArray.recycle()
     }
 
-    private fun notifyItemScaled() {
+    private fun notifyScrolled() {
         val firstPos = linearLayoutManager.findFirstVisibleItemPosition()
         val lastPos = linearLayoutManager.findLastVisibleItemPosition()
         (firstPos..lastPos).forEach { pos ->
             val view = linearLayoutManager.findViewByPosition(pos)
             if (view != null) {
                 val distance = if (orientation == LinearLayoutManager.HORIZONTAL) {
-                    view.left - ((width - itemSize) / 2)
+                    view.left - ((width - itemViewSize) / 2)
                 } else {
-                    view.top - ((height - itemSize) / 2)
+                    view.top - ((height - itemViewSize) / 2)
                 }
-                (adapter as CacheAdapter).setDistance(pos, distance, itemSize.roundToInt())
+                (adapter as CacheAdapter).setDistance(pos, distance, itemViewSize.roundToInt())
             }
         }
     }

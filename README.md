@@ -4,7 +4,7 @@
 -------
 
     advantage:
-        1. Lessf code
+        1. Less code
         2. Fast
         3. Easy to modify
 
