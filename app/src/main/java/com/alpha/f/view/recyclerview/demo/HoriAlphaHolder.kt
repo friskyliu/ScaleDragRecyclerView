@@ -1,17 +1,19 @@
 package com.alpha.f.view.recyclerview.demo
 
+import android.content.res.Resources
 import android.view.View
 import android.view.ViewConfiguration
 import android.widget.TextView
 import com.alpha.f.view.scalerecyclerview.CacheHolder
 
-class HorizontalHolder(view: View) : CacheHolder(view) {
+class HoriAlphaHolder(view: View) : CacheHolder(view) {
     companion object {
         const val MAX_SCALE = 1.5F
     }
 
     val textView = view.findViewById<TextView>(R.id.round_item)
     private val scaledTouchSlop = ViewConfiguration.get(view.context).scaledTouchSlop.toFloat()
+    private val halfWidth = Resources.getSystem().displayMetrics.widthPixels / 2.0F
 
     override fun setDistance(distanceToCenter: Float?, itemViewSize: Int) {
         if (distanceToCenter == null) {
@@ -21,6 +23,7 @@ class HorizontalHolder(view: View) : CacheHolder(view) {
         val maxTrans = itemViewSize / 6F
         var trans = 0F
         var scale = 1F
+        var alpha = 1.0f - Math.abs(distanceToCenter) / halfWidth
         when {
             distanceToCenter <= -itemViewSize -> {
                 trans = -maxTrans
@@ -46,5 +49,6 @@ class HorizontalHolder(view: View) : CacheHolder(view) {
         textView.translationX = trans
         textView.scaleX = scale
         textView.scaleY = scale
+        textView.alpha = alpha
     }
 }

@@ -5,9 +5,9 @@ import android.view.ViewConfiguration
 import android.widget.TextView
 import com.alpha.f.view.scalerecyclerview.CacheHolder
 
-class HorizontalHolder(view: View) : CacheHolder(view) {
+class HoriSmallHolder(view: View) : CacheHolder(view) {
     companion object {
-        const val MAX_SCALE = 1.5F
+        const val MIN_SCALE = 0.5F
     }
 
     val textView = view.findViewById<TextView>(R.id.round_item)
@@ -31,15 +31,15 @@ class HorizontalHolder(view: View) : CacheHolder(view) {
             distanceToCenter <= -scaledTouchSlop -> {
                 val tmp = 1 + distanceToCenter / itemViewSize.toFloat()
                 trans = -maxTrans * (1 - tmp)
-                scale = 1.0F + (MAX_SCALE - 1.0F) * tmp
+                scale = 1.0F - MIN_SCALE * tmp
             }
             distanceToCenter >= scaledTouchSlop -> {
                 val tmp = 1 - distanceToCenter / itemViewSize.toFloat()
                 trans = maxTrans * (1 - tmp)
-                scale = 1.0F + (MAX_SCALE - 1.0F) * tmp
+                scale = 1.0F - MIN_SCALE * tmp
             }
             else -> {
-                scale = MAX_SCALE
+                scale = MIN_SCALE
             }
         }
 

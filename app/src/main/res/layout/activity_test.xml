@@ -9,21 +9,41 @@
         android:id="@+id/test_rv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
-        android:layout_marginTop="30dp"
-        android:background="@android:color/darker_gray"
+        android:background="#aaaaaa"
         android:paddingBottom="10dp"
         android:paddingTop="10dp"
-        app:item_size="@dimen/item_size"
+        app:item_size="@dimen/item_size_h"
         />
 
     <com.alpha.f.view.scalerecyclerview.ScaleLinearRecyclerView
-        android:id="@+id/test_rv1"
+        android:id="@+id/test_rv_alpha"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/test_rv"
+        android:background="#cccccc"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        app:item_size="@dimen/item_size_h"
+        />
+
+    <com.alpha.f.view.scalerecyclerview.ScaleLinearRecyclerView
+        android:id="@+id/test_rv_small"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/test_rv_alpha"
+        android:background="#aaaaaa"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        app:item_size="@dimen/item_size_h"
+        />
+
+    <com.alpha.f.view.scalerecyclerview.ScaleLinearRecyclerView
+        android:id="@+id/test_rv_v"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/test_rv"
-        android:background="@android:color/darker_gray"
-        app:item_size="120dp"
+        android:layout_below="@id/test_rv_small"
+        android:background="#cccccc"
+        app:item_size="@dimen/item_size_v"
         app:orientation="vertical"
         />
 </RelativeLayout>

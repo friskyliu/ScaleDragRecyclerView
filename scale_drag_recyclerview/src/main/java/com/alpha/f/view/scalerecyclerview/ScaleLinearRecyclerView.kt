@@ -5,6 +5,7 @@ import android.support.v7.widget.CenterLinearSnapHelper
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.AttributeSet
+import com.alpha.f.view.onGlobalLayout
 import kotlin.math.roundToInt
 
 class ScaleLinearRecyclerView : RecyclerView {
@@ -12,6 +13,8 @@ class ScaleLinearRecyclerView : RecyclerView {
     private var orientation = LinearLayoutManager.HORIZONTAL
     private val snapHelper = CenterLinearSnapHelper()
     private var itemViewSize: Float = 0F
+    private var selectedPosition = 0
+    var onSelectedChangedListsner: OnSelectedChangedListsner? = null
 
     constructor(context: Context) : this(context, null)
 
@@ -19,6 +22,18 @@ class ScaleLinearRecyclerView : RecyclerView {
 
     constructor(context: Context, attrs: AttributeSet?, defStyle: Int) : super(context, attrs, defStyle) {
         init(context, attrs)
+    }
+
+    fun selectPosition(pos: Int) {
+        onGlobalLayout(Runnable {
+            val offset = if (orientation == LinearLayoutManager.HORIZONTAL) {
+                ((width - itemViewSize) / 2F).roundToInt()
+            } else {
+                ((height - itemViewSize) / 2F).roundToInt()
+            }
+            selectedPosition = pos
+            linearLayoutManager.scrollToPositionWithOffset(pos, offset)
+        })
     }
 
     private fun init(context: Context, attrs: AttributeSet?) {
@@ -35,7 +50,7 @@ class ScaleLinearRecyclerView : RecyclerView {
 
         addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                notifyScrolled()
+                notifyScrolled(newState == RecyclerView.SCROLL_STATE_IDLE)
             }
 
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -57,7 +72,7 @@ class ScaleLinearRecyclerView : RecyclerView {
         typedArray.recycle()
     }
 
-    private fun notifyScrolled() {
+    private fun notifyScrolled(needFetchPos: Boolean = false) {
         val firstPos = linearLayoutManager.findFirstVisibleItemPosition()
         val lastPos = linearLayoutManager.findLastVisibleItemPosition()
         (firstPos..lastPos).forEach { pos ->
@@ -69,6 +84,20 @@ class ScaleLinearRecyclerView : RecyclerView {
                     view.top - ((height - itemViewSize) / 2)
                 }
                 (adapter as CacheAdapter).setDistance(pos, distance, itemViewSize.roundToInt())
+            }
+        }
+
+        if (needFetchPos) {
+            val centerView = snapHelper.findSnapView(linearLayoutManager)
+            val pos = if (centerView == null) {
+                -1
+            } else {
+                getChildLayoutPosition(centerView)
+            }
+            if (pos != selectedPosition) {
+                val old = selectedPosition
+                selectedPosition = pos
+                onSelectedChangedListsner?.onSelectedChanged(this, old, pos)
             }
         }
     }

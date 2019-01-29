@@ -3,7 +3,7 @@
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="120dp">
+    android:layout_height="@dimen/item_size_v">
 
     <TextView
         android:id="@+id/round_item"
