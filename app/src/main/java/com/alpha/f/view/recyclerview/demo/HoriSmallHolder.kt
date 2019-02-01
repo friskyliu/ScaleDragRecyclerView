@@ -1,7 +1,6 @@
 package com.alpha.f.view.recyclerview.demo
 
 import android.view.View
-import android.view.ViewConfiguration
 import android.widget.TextView
 import com.alpha.f.view.scalerecyclerview.CacheHolder
 
@@ -11,7 +10,6 @@ class HoriSmallHolder(view: View) : CacheHolder(view) {
     }
 
     val textView = view.findViewById<TextView>(R.id.round_item)
-    private val scaledTouchSlop = ViewConfiguration.get(view.context).scaledTouchSlop.toFloat()
 
     override fun setDistance(distanceToCenter: Float?, itemViewSize: Int) {
         if (distanceToCenter == null) {
@@ -19,27 +17,25 @@ class HoriSmallHolder(view: View) : CacheHolder(view) {
         }
 
         val maxTrans = itemViewSize / 6F
-        var trans = 0F
+        val trans: Float
         var scale = 1F
         when {
             distanceToCenter <= -itemViewSize -> {
-                trans = -maxTrans
-            }
-            distanceToCenter >= itemViewSize -> {
                 trans = maxTrans
             }
-            distanceToCenter <= -scaledTouchSlop -> {
-                val tmp = 1 + distanceToCenter / itemViewSize.toFloat()
-                trans = -maxTrans * (1 - tmp)
-                scale = 1.0F - MIN_SCALE * tmp
-            }
-            distanceToCenter >= scaledTouchSlop -> {
-                val tmp = 1 - distanceToCenter / itemViewSize.toFloat()
-                trans = maxTrans * (1 - tmp)
-                scale = 1.0F - MIN_SCALE * tmp
+            distanceToCenter >= itemViewSize -> {
+                trans = -maxTrans
             }
             else -> {
-                scale = MIN_SCALE
+                val beforeCenter = distanceToCenter < 0F
+                val absDistanceToCenter = Math.abs(distanceToCenter)
+                val tmp = 1 - absDistanceToCenter / itemViewSize.toFloat()
+                trans = if (beforeCenter) {
+                    maxTrans * (1 - tmp)
+                } else {
+                    -maxTrans * (1 - tmp)
+                }
+                scale = 1.0F - MIN_SCALE * tmp
             }
         }
 

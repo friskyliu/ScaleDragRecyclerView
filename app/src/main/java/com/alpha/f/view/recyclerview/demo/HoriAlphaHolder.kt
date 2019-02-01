@@ -2,7 +2,6 @@ package com.alpha.f.view.recyclerview.demo
 
 import android.content.res.Resources
 import android.view.View
-import android.view.ViewConfiguration
 import android.widget.TextView
 import com.alpha.f.view.scalerecyclerview.CacheHolder
 
@@ -12,7 +11,6 @@ class HoriAlphaHolder(view: View) : CacheHolder(view) {
     }
 
     val textView = view.findViewById<TextView>(R.id.round_item)
-    private val scaledTouchSlop = ViewConfiguration.get(view.context).scaledTouchSlop.toFloat()
     private val halfWidth = Resources.getSystem().displayMetrics.widthPixels / 2.0F
 
     override fun setDistance(distanceToCenter: Float?, itemViewSize: Int) {
@@ -21,9 +19,10 @@ class HoriAlphaHolder(view: View) : CacheHolder(view) {
         }
 
         val maxTrans = itemViewSize / 6F
-        var trans = 0F
+        val trans: Float
         var scale = 1F
-        var alpha = 1.0f - Math.abs(distanceToCenter) / halfWidth
+        val absDistanceToCenter = Math.abs(distanceToCenter)
+        val alpha = 1.0f - absDistanceToCenter / halfWidth
         when {
             distanceToCenter <= -itemViewSize -> {
                 trans = -maxTrans
@@ -31,18 +30,15 @@ class HoriAlphaHolder(view: View) : CacheHolder(view) {
             distanceToCenter >= itemViewSize -> {
                 trans = maxTrans
             }
-            distanceToCenter <= -scaledTouchSlop -> {
-                val tmp = 1 + distanceToCenter / itemViewSize.toFloat()
-                trans = -maxTrans * (1 - tmp)
-                scale = 1.0F + (MAX_SCALE - 1.0F) * tmp
-            }
-            distanceToCenter >= scaledTouchSlop -> {
-                val tmp = 1 - distanceToCenter / itemViewSize.toFloat()
-                trans = maxTrans * (1 - tmp)
-                scale = 1.0F + (MAX_SCALE - 1.0F) * tmp
-            }
             else -> {
-                scale = MAX_SCALE
+                val beforeCenter = distanceToCenter < 0F
+                val tmp = 1 - absDistanceToCenter / itemViewSize.toFloat()
+                trans = if (beforeCenter) {
+                    -maxTrans * (1 - tmp)
+                } else {
+                    maxTrans * (1 - tmp)
+                }
+                scale = 1.0F + (MAX_SCALE - 1.0F) * tmp
             }
         }
 

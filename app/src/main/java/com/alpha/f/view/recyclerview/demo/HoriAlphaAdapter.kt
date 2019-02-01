@@ -10,7 +10,7 @@ class HoriAlphaAdapter(val data: List<String>) : CacheAdapter<HoriAlphaHolder>()
     }
 
     override fun onCreateViewHolder(container: ViewGroup, pos: Int): HoriAlphaHolder {
-        val view = LayoutInflater.from(container.context).inflate(R.layout.rv_item_h, container, false)
+        val view = LayoutInflater.from(container.context).inflate(R.layout.rv_item_alpha_h, container, false)
         return HoriAlphaHolder(view)
     }
 
