@@ -1,10 +1,10 @@
 package com.alpha.f.view.scalerecyclerview
 
 import android.content.Context
-import android.support.v7.widget.CenterLinearSnapHelper
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.util.AttributeSet
+import androidx.recyclerview.widget.CenterLinearSnapHelper
 import com.alpha.f.view.onGlobalLayout
 import kotlin.math.roundToInt
 

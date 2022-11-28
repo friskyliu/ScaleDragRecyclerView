@@ -1,8 +1,8 @@
 package com.alpha.f.view.scalerecyclerview
 
 import android.graphics.Rect
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 
 class ScaleLinearItemDecoration(private val viewSize: Int, private val ori: Int) : RecyclerView.ItemDecoration() {
