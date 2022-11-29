@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace 'com.alpha.f.view.recyclerview.demo'
+    namespace 'com.frisky.view.recyclerview.demo'
     compileSdk 32
 
     defaultConfig {
-        applicationId "com.alpha.f.view.recyclerview.demo"
+        applicationId "com.frisky.view.recyclerview.demo"
         minSdk 21
         targetSdk 32
         versionCode 1

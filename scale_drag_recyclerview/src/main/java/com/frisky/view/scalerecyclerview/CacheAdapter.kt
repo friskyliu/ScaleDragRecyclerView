@@ -1,4 +1,4 @@
-package com.alpha.f.view.scalerecyclerview
+package com.frisky.view.scalerecyclerview
 
 import androidx.recyclerview.widget.RecyclerView
 import java.util.*

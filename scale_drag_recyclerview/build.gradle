@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace 'com.alpha.f.view.scalerecyclerview'
+    namespace 'com.frisky.view.scalerecyclerview'
     compileSdk 32
 
     defaultConfig {

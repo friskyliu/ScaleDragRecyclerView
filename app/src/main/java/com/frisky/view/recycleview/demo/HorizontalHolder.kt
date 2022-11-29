@@ -1,24 +1,24 @@
-package com.alpha.f.view.recyclerview.demo
+package com.frisky.view.recycleview.demo
 
 import android.view.View
 import android.widget.TextView
-import com.alpha.f.view.scalerecyclerview.CacheHolder
+import com.frisky.view.recyclerview.demo.R
+import com.frisky.view.scalerecyclerview.CacheHolder
 
-class VerticalHolder(view: View) : CacheHolder(view) {
+class HorizontalHolder(view: View) : CacheHolder(view) {
     companion object {
         const val MAX_SCALE = 1.5F
     }
 
     val textView = view.findViewById<TextView>(R.id.round_item)
-
     override fun setDistance(distanceToCenter: Float?, itemViewSize: Int) {
         if (distanceToCenter == null) {
             return
         }
 
         val maxTrans = itemViewSize / 6F
-        var trans = 0F
         var scale = 1F
+        val trans: Float
         when {
             distanceToCenter <= -itemViewSize -> {
                 trans = -maxTrans
@@ -39,7 +39,7 @@ class VerticalHolder(view: View) : CacheHolder(view) {
             }
         }
 
-        textView.translationY = trans
+        textView.translationX = trans
         textView.scaleX = scale
         textView.scaleY = scale
     }

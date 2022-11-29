@@ -1,9 +1,10 @@
-package com.alpha.f.view.recyclerview.demo
+package com.frisky.view.recycleview.demo
 
 import android.content.res.Resources
 import android.view.View
 import android.widget.TextView
-import com.alpha.f.view.scalerecyclerview.CacheHolder
+import com.frisky.view.recyclerview.demo.R
+import com.frisky.view.scalerecyclerview.CacheHolder
 
 class HoriAlphaHolder(view: View) : CacheHolder(view) {
     companion object {

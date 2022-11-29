@@ -1,4 +1,4 @@
-package com.alpha.f.view.scalerecyclerview
+package com.frisky.view.scalerecyclerview
 
 import android.graphics.Rect
 import androidx.recyclerview.widget.LinearLayoutManager

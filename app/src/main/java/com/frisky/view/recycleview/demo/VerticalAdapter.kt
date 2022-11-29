@@ -1,8 +1,9 @@
-package com.alpha.f.view.recyclerview.demo
+package com.frisky.view.recycleview.demo
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.alpha.f.view.scalerecyclerview.CacheAdapter
+import com.frisky.view.recyclerview.demo.R
+import com.frisky.view.scalerecyclerview.CacheAdapter
 
 class VerticalAdapter(val data: List<String>) : CacheAdapter<VerticalHolder>() {
     override fun onBindViewHolderNew(viewHolder: VerticalHolder, position: Int) {

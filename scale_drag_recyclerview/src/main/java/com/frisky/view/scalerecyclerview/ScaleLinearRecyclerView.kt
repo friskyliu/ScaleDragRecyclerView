@@ -1,4 +1,4 @@
-package com.alpha.f.view.scalerecyclerview
+package com.frisky.view.scalerecyclerview
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -6,7 +6,7 @@ import android.util.AttributeSet
 import androidx.recyclerview.widget.CenterLinearSnapHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.alpha.f.view.onGlobalLayout
+import com.frisky.view.onGlobalLayout
 import kotlin.math.roundToInt
 
 class ScaleLinearRecyclerView : RecyclerView {

@@ -1,10 +1,11 @@
-package com.alpha.f.view.recyclerview.demo
+package com.frisky.view.recycleview.demo
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import android.util.Log
-import com.alpha.f.view.scalerecyclerview.OnSelectedChangedListsner
+import com.frisky.view.recyclerview.demo.R
+import com.frisky.view.scalerecyclerview.OnSelectedChangedListsner
 import kotlinx.android.synthetic.main.activity_test.*
 
 

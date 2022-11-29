@@ -1,4 +1,4 @@
-package com.alpha.f.view
+package com.frisky.view
 
 import android.os.Build
 import android.view.View
