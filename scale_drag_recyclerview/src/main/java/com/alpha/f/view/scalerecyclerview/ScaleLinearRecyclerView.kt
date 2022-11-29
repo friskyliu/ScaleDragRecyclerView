@@ -1,15 +1,18 @@
 package com.alpha.f.view.scalerecyclerview
 
+import android.annotation.SuppressLint
 import android.content.Context
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import android.util.AttributeSet
 import androidx.recyclerview.widget.CenterLinearSnapHelper
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.alpha.f.view.onGlobalLayout
 import kotlin.math.roundToInt
 
 class ScaleLinearRecyclerView : RecyclerView {
     private lateinit var linearLayoutManager: LinearLayoutManager
+
+    @RecyclerView.Orientation
     private var orientation = LinearLayoutManager.HORIZONTAL
     private val snapHelper = CenterLinearSnapHelper()
     private var itemViewSize: Float = 0F
@@ -40,6 +43,7 @@ class ScaleLinearRecyclerView : RecyclerView {
         loadAttrs(context, attrs)
         snapHelper.attachToRecyclerView(this)
         addItemDecoration(ScaleLinearItemDecoration(itemViewSize.roundToInt(), orientation))
+        @SuppressLint("WrongConstant")
         linearLayoutManager = object : LinearLayoutManager(context, orientation, false) {
             override fun onLayoutCompleted(state: RecyclerView.State?) {
                 super.onLayoutCompleted(state)

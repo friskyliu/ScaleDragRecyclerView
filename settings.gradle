@@ -1,1 +1,17 @@
-include ':app', ':scale_drag_recyclerview'
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+rootProject.name = "ScaleDragRecyclerView"
+include ':app'
+include ':scale_drag_recyclerview'
